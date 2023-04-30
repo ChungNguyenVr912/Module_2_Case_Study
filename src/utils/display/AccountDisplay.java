@@ -8,27 +8,30 @@ import utils.ValidateInput;
 
 import java.util.Scanner;
 
-public class LoginDisplay {
-    private static final LoginDisplay instance = new LoginDisplay();
-    private LoginDisplay(){}
-    public static LoginDisplay getInstance(){
+public class AccountDisplay {
+    private static final AccountDisplay instance = new AccountDisplay();
+    private AccountDisplay(){}
+    public static AccountDisplay getInstance(){
         return instance;
     }
     private final Scanner scanner = new Scanner(System.in);
     public void displaySignUp(String userType){
-        System.out.println("Enter your full name: ");
-        String fullName = scanner.next();
-        System.out.println("Enter your email: ");
+        System.out.print("Enter your full name: ");
+        scanner.nextLine();
+        String fullName = scanner.nextLine();
+        System.out.print("Enter your email: ");
         String email = ValidateInput.validateEmail();
-        System.out.println("Enter your passWord: ");
+        System.out.print("Enter your passWord: ");
         String passWord = ValidateInput.validatePassword();
-        System.out.println("Enter your phone number: ");
+        System.out.print("Enter your phone number: ");
         long phoneNumber = ValidateInput.validateLong();
         switch (userType){
             case "customer" -> CustomerService.getInstance().createUser(fullName, email, passWord, phoneNumber);
             case "staff" -> StaffService.getInstance().createUser(fullName, email, passWord, phoneNumber);
             case "airlines" -> AirlinesCompanyService.getInstance().createUser(fullName, email, passWord, phoneNumber);
         }
+        if (userType.equals("customer")){
+        UserService.signIn(email,passWord);}
     }
 
     public void displaySignIn(){
@@ -36,8 +39,13 @@ public class LoginDisplay {
         String email = scanner.next();
         System.out.println("Enter password: ");
         String password = scanner.next();
-        System.out.println();
+        System.out.println("\r");
         UserService.signIn(email, password);
-        System.out.println(UserService.getStatus());
+//        System.out.println(UserService.getStatus());
+//        try {
+//        System.out.println("Hello " + UserService.getCurrentUser().getFullName());
+//        }catch (NullPointerException e){
+//            System.err.println("Ối dồi ôi!\n");
+//        }
     }
 }

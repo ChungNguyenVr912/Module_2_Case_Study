@@ -50,7 +50,7 @@ public abstract class User implements Serializable {
     @Override
     public String toString() {
         return "FullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + email + "[" + passWord + "]" +
                 ", phoneNumber=" + phoneNumber;
     }
 }

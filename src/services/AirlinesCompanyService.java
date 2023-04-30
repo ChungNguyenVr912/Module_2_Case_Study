@@ -1,5 +1,6 @@
 package services;
 
+import entity.abstraction.User;
 import factory.UserFactory;
 import services.abstraction.UserService;
 import utils.DataWriter;
@@ -15,9 +16,9 @@ public class AirlinesCompanyService extends UserService {
     @Override
     public void createUser(String fullName, String email, String passWord, long phoneNumber) {
         if (checkValidEmail(email)) {
-            currentUser = UserFactory.getInstance()
+            User newAirlines = UserFactory.getInstance()
                     .getUser("airlines", fullName, email, passWord, phoneNumber);
-            DataWriter.storeRegisteredUser(currentUser, AIRLINES_DATA_URL);
+            DataWriter.storeRegisteredUser(newAirlines, AIRLINES_DATA_URL);
             UserService.updateUserList();
         } else {
             status = "Email has been used!";

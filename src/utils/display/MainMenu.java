@@ -18,8 +18,15 @@ public class MainMenu {
                 """);
         int input = ValidateInput.validateInteger();
         switch (input){
-            case 1 -> LoginDisplay.getInstance().displaySignIn();
-            case 2 -> LoginDisplay.getInstance().displaySignUp("customer");
+            case 1 -> AccountDisplay.getInstance().displaySignIn();
+            case 2 -> AccountDisplay.getInstance().displaySignUp("customer");
+            case 3 -> System.out.println("Coming soon!");
+        }
+        System.out.println(UserService.getStatus());
+        try {
+            System.out.println("Hello " + UserService.getCurrentUser().getFullName());
+        }catch (NullPointerException e){
+            System.err.println("Ối dồi ôi!\n");
         }
         UserService.displayViewByUser();
     }

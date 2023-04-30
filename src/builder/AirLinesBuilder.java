@@ -28,6 +28,6 @@ public class AirLinesBuilder extends AbstractUserBuilder {
         return this;
     }
     public AirLinesCompany build(){
-        return new AirLinesCompany(fullName,passWord, email, phoneNumber);
+        return new AirLinesCompany(fullName,email, passWord, phoneNumber);
     }
 }

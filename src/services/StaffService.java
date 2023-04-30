@@ -1,5 +1,6 @@
 package services;
 
+import entity.abstraction.User;
 import factory.UserFactory;
 import services.abstraction.UserService;
 import services.abstraction.UserServiceInterface;
@@ -15,9 +16,9 @@ public class StaffService extends UserService implements UserServiceInterface {
     @Override
     public void createUser(String fullName, String email, String passWord, long phoneNumber) {
         if (checkValidEmail(email)){
-            currentUser = UserFactory.getInstance()
+            User newStaff = UserFactory.getInstance()
                     .getUser("staff", fullName, passWord, email, phoneNumber);
-            DataWriter.storeRegisteredUser(currentUser, STAFF_DATA_URL);
+            DataWriter.storeRegisteredUser(newStaff, STAFF_DATA_URL);
             UserService.updateUserList();
         }
     }

@@ -4,25 +4,29 @@ import services.AdminService;
 import services.abstraction.UserService;
 import utils.ValidateInput;
 
+import java.util.Scanner;
+
 public class AdminView {
     public static void displayAdminView(){
         System.out.println("""
                 
                 1. Register new Staff
                 2. Register new Airlines Company
-                3. View Staff list
-                4. View user list
-                5. View report
-                6. Logout
+                3. View Airlines Company list
+                4. View Staff list
+                5. View user list
+                6. View report
+                7. Logout
                 """);
         int option = ValidateInput.validateInteger();
         switch (option){
             case 1 -> AdminService.getInstance().addStaff();
             case 2 -> AdminService.getInstance().addAirlinesCompany();
-            case 3 -> AdminService.getInstance().viewStaffList();
-            case 4 -> AdminService.getInstance().checkUser();
-            case 5 -> viewReport();
-            case 6 -> {UserService.setCurrentUser(null);
+            case 3 -> AdminService.getInstance().viewAirlinesList();
+            case 4 -> AdminService.getInstance().viewStaffList();
+            case 5 -> AdminService.getInstance().checkUser();
+            case 6 -> viewReport();
+            case 7 -> {UserService.setCurrentUser(null);
                         return;}
         }
         displayAdminView();

@@ -2,13 +2,10 @@ package factory;
 
 import builder.director.UserDirector;
 import entity.abstraction.User;
-import factory.abstraction.AbstractFactory;
 import utils.DateTime;
 import utils.ValidateInput;
 
-import java.util.Scanner;
-
-public class UserFactory implements AbstractFactory {
+public class UserFactory  {
     private static final UserFactory instance = new UserFactory();
 
     private UserFactory() {
@@ -17,8 +14,6 @@ public class UserFactory implements AbstractFactory {
     public static UserFactory getInstance() {
         return instance;
     }
-
-    private final Scanner scanner = new Scanner(System.in);
 
     public User getUser(String userType, String fullName, String email, String passWord, long phoneNumber) {
         switch (userType) {

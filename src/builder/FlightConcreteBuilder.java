@@ -1,17 +1,21 @@
 package builder;
 
 import builder.abstraction.FlightBuilder;
+import entity.AirPlane;
 import entity.Flight;
 import entity.abstraction.Airlines;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class FlightConcreteBuilder implements FlightBuilder {
     private Airlines provider;
+    private AirPlane airPlane;
     private String departure;
     private String destination;
-    private Date departTime;
-    private Date arrivalTime;
+    private LocalDateTime departTime;
+    private LocalDateTime arrivalTime;
+    private String crewInfo;
+    private double basePrice;
 
     public FlightConcreteBuilder() {
     }
@@ -19,6 +23,12 @@ public class FlightConcreteBuilder implements FlightBuilder {
     @Override
     public FlightConcreteBuilder setProvider(Airlines provider) {
         this.provider = provider;
+        return this;
+    }
+
+    @Override
+    public FlightConcreteBuilder setAirplane(AirPlane airPlane) {
+        this.airPlane = airPlane;
         return this;
     }
 
@@ -35,18 +45,29 @@ public class FlightConcreteBuilder implements FlightBuilder {
     }
 
     @Override
-    public FlightConcreteBuilder setDepartTime(Date departTime) {
+    public FlightConcreteBuilder setDepartTime(LocalDateTime departTime) {
         this.departTime = departTime;
         return this;
     }
 
     @Override
-    public FlightConcreteBuilder setArrivalTime(Date arrivalTime) {
+    public FlightConcreteBuilder setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
         return this;
     }
 
+    @Override
+    public FlightConcreteBuilder setCrewInfo(String crewInfo) {
+        this.crewInfo = crewInfo;
+        return this;
+    }
+
+    public FlightConcreteBuilder setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+        return this;
+    }
+
     public Flight build() {
-        return new Flight(provider, departure, destination, departTime, arrivalTime);
+        return new Flight(provider, airPlane, departure, destination, departTime, arrivalTime, crewInfo, basePrice);
     }
 }

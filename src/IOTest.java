@@ -1,23 +1,16 @@
-import builder.director.UserDirector;
-import entity.Admin;
-import entity.Customer;
-import entity.Staff;
-import entity.abstraction.User;
-import factory.UserFactory;
-import services.AdminService;
-import services.abstraction.UserService;
+import services.FlightService;
 import utils.DataReader;
-import utils.DataWriter;
 import utils.DateTime;
+import utils.display.BookingView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.util.HashMap;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IOTest {
-    public static void main(String[] args) {
-        System.out.println(DateTime.getToday());
+    public static void main(String[] args) throws IOException {
 
 //        Staff staff = new Staff("Huy", "1235", "Huystaff@gmail.com", 8412222213L);
 //        DataWriter.storeRegisteredUser(staff, "src/data/staffs.csv");
@@ -29,9 +22,36 @@ public class IOTest {
 //        List<User> userList = DataReader.getRegisteredUser("src/data/admin.csv");
 //        System.out.println(userList.get(0));
 //        Customer customer = UserDirector.
-//                buildCustomer("Chung", "chung219@gmail.com", "Aaa111@1", 8412312383L, "male", 27394729347L);
+//                buildCustomer("Chung", "chung@gmail.com", "Aaa111@1", 8412312383L);
 //        DataWriter.storeRegisteredUser(customer, "src/data/customers.csv");
-
+//        AirLinesCompany airLinesCompany = UserDirector
+//                .buildAirLines("ChungPhungPhat AirLines", "cppairlines@gmail.com","cpp", 84900900900L);
+        System.out.println(generateFlightCode());
+        System.out.println(DateTime.getToday());
+        BookingView.displayBookingView();
     }
+    public static String generateFlightCode() {
+        StringBuilder result = new StringBuilder();
+        Pattern pattern = Pattern.compile("[A-Z]");
+        Matcher matcher = pattern.matcher("Chung Phung Phat Airlines");
+        LocalDateTime departTime = LocalDateTime.now();
+        while (matcher.find()) {
+            result.append(matcher.group());
+        }
+        result.append(departTime.getDayOfMonth()).append(departTime.getMonthValue())
+                .append("_").append(departTime.getDayOfWeek());
+        result.append("_");
+        matcher = pattern.matcher("HaNoi");
+        while (matcher.find()) {
+            result.append(matcher.group());
+        }
+        result.append("-");
+        matcher = pattern.matcher("HoChiMinh");
+        while (matcher.find()) {
+            result.append(matcher.group());
+        }
+        return result.toString();
+    }
+
 }
 

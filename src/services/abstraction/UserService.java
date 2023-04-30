@@ -6,6 +6,7 @@ import entity.Customer;
 import entity.Staff;
 import entity.abstraction.User;
 import utils.DataReader;
+import utils.DataWriter;
 import utils.display.AdminView;
 import utils.display.CustomerView;
 import utils.display.StaffView;
@@ -13,23 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UserService implements UserServiceInterface {
-    protected static final String USER_DATA_URL = "src/data/customers.csv";
+    protected static final String CUSTOMER_DATA_URL = "src/data/customers.csv";
     protected static final String STAFF_DATA_URL = "src/data/staffs.csv";
     protected static final String AIRLINES_DATA_URL = "src/data/airlines.csv";
     protected static List<User> customerList;
     protected static List<User> staffList;
     protected static List<User> airLinesCompanyList;
     protected static User currentUser;
-    protected static String status;
+    protected static String status = "Please login!";
 
     static {
-        customerList = DataReader.getRegisteredUser(USER_DATA_URL);
+        customerList = DataReader.getRegisteredUser(CUSTOMER_DATA_URL);
         staffList = DataReader.getRegisteredUser(STAFF_DATA_URL);
         airLinesCompanyList = DataReader.getRegisteredUser(AIRLINES_DATA_URL);
     }
 
     public static void updateUserList() {
-        customerList = DataReader.getRegisteredUser(USER_DATA_URL);
+        customerList = DataReader.getRegisteredUser(CUSTOMER_DATA_URL);
         staffList = DataReader.getRegisteredUser(STAFF_DATA_URL);
         airLinesCompanyList = DataReader.getRegisteredUser(AIRLINES_DATA_URL);
     }
@@ -59,10 +60,7 @@ public abstract class UserService implements UserServiceInterface {
     }
 
     public static void signIn(String email, String passWord) {
-        List<User> users = new ArrayList<>(customerList);
-        users.addAll(staffList);
-        users.addAll(DataReader.getRegisteredUser("src/data/admin.csv"));
-        status = "Wrong email or password!";
+        List<User> users = getAllUser();
         for (User user : users) {
             if (user.getEmail().equals(email) && user.getPassWord().equals(passWord)) {
                 currentUser = user;
@@ -73,9 +71,10 @@ public abstract class UserService implements UserServiceInterface {
                 } else {
                     status = "Login success!";
                 }
-                break;
+                return;
             }
         }
+        status = "Wrong email or password!";
     }
 
     public static void displayViewByUser() {
@@ -92,19 +91,38 @@ public abstract class UserService implements UserServiceInterface {
 
 
     public boolean checkValidEmail(String email) {
-        if (customerList == null || staffList == null) {
-            return true;
-        }
-        for (User user : customerList) {
-            if (user.getEmail().equals(email)) {
+        List<User> users = getAllUser();
+        for (User user : users) {
+            if (user.getEmail().equals(email))
                 return false;
-            }
-        }
-        for (User staff : staffList) {
-            if (staff.getEmail().equals(email)) {
-                return false;
-            }
         }
         return true;
+    }
+    public static List<User> getAllUser(){
+        List<User> users;
+        try {
+            users = new ArrayList<>(customerList);
+        }catch (Exception e){
+            System.err.println("Read customer list fail!");
+            users = new ArrayList<>();
+        }
+        try {
+            users.addAll(staffList);
+        }catch (Exception e){
+            System.out.println("Read staff list fail!");
+            users = new ArrayList<>();
+        }
+        try {
+            users.addAll(airLinesCompanyList);
+        }catch (Exception e){
+            System.out.println("Read partner list fail!");
+            users = new ArrayList<>();
+        }
+        users.addAll(DataReader.getRegisteredUser("src/data/admin.csv"));
+        return users;
+    }
+
+    public static void updateCustomerInfoToFile(){
+        DataWriter.updateUserInfoToUserList(customerList, CUSTOMER_DATA_URL);
     }
 }

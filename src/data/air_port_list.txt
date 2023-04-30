@@ -1,0 +1,14 @@
+Hà Nội,HAN
+Hồ Chí Minh,SGN
+Đà Nẵng,DAD
+Hải Phòng,HPH
+Quảng Nam,VCL
+Huế,HUI
+Phú Yên,TBB
+Nha Trang,CXR
+Quy Nhơn,UIH
+Đà Lạt,DLI
+Cần Thơ,VCA
+Cà Mau,CAH
+Phú Quốc,PQC
+Côn Đảo,VCS

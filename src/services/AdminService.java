@@ -1,11 +1,12 @@
 package services;
 
+import entity.AirLinesCompany;
 import entity.Customer;
 import entity.Staff;
 import entity.abstraction.User;
 import services.abstraction.UserService;
 import services.abstraction.UserServiceInterface;
-import utils.display.LoginDisplay;
+import utils.display.AccountDisplay;
 
 import java.util.List;
 import java.util.Scanner;
@@ -22,14 +23,14 @@ public class AdminService extends UserService implements UserServiceInterface {
 
     @Override
     public void createUser(String fullName, String email, String passWord, long phoneNumber) {
-        LoginDisplay.getInstance().displaySignUp("customer");
+        AccountDisplay.getInstance().displaySignUp("customer");
     }
 
     public void addStaff() {
-        LoginDisplay.getInstance().displaySignUp("staff");
+        AccountDisplay.getInstance().displaySignUp("staff");
     }
     public void addAirlinesCompany() {
-        LoginDisplay.getInstance().displaySignUp("airlines");
+        AccountDisplay.getInstance().displaySignUp("airlines");
     }
 
     public void viewStaffList() {
@@ -38,6 +39,14 @@ public class AdminService extends UserService implements UserServiceInterface {
         users.forEach(user -> {
             Staff staff = (Staff) user;
             System.out.println(staff);
+        });
+    }
+    public void viewAirlinesList() {
+        List<User> users = UserService.airLinesCompanyList;
+        System.out.println("Total partner: " + users.size());
+        users.forEach(user -> {
+            AirLinesCompany airlines = (AirLinesCompany) user;
+            System.out.println(airlines);
         });
     }
 
