@@ -5,13 +5,12 @@ import entity.Customer;
 import entity.Staff;
 import entity.abstraction.User;
 import services.abstraction.UserService;
-import services.abstraction.UserServiceInterface;
 import utils.display.AccountDisplay;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class AdminService extends UserService implements UserServiceInterface {
+public class AdminService extends UserService {
     private static final AdminService instance = new AdminService();
 
     private AdminService() {
@@ -21,10 +20,10 @@ public class AdminService extends UserService implements UserServiceInterface {
         return instance;
     }
 
-    @Override
-    public void createUser(String fullName, String email, String passWord, long phoneNumber) {
-        AccountDisplay.getInstance().displaySignUp("customer");
-    }
+
+//    public void createUser(String fullName, String email, String passWord, long phoneNumber) {
+//        AccountDisplay.getInstance().displaySignUp("customer");
+//    }
 
     public void addStaff() {
         AccountDisplay.getInstance().displaySignUp("staff");

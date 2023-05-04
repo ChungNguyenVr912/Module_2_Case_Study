@@ -15,7 +15,6 @@ public class CustomerService extends UserService {
         return instance;
     }
 
-    @Override
     public void createUser(String fullName, String email, String passWord, long phoneNumber) {
         if (checkValidEmail(email)) {
             User newCustomer = UserFactory.getInstance()

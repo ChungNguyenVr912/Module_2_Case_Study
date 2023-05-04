@@ -1,5 +1,9 @@
 package entity.abstraction;
 
-public interface Airlines {
+import java.io.Serializable;
+
+public interface Airlines extends Serializable {
     String getFullName();
+    double getPriceMulti();
+    void setPriceMulti(double priceMulti);
 }

@@ -16,8 +16,8 @@ public class AccountDisplay {
     }
     private final Scanner scanner = new Scanner(System.in);
     public void displaySignUp(String userType){
-        System.out.print("Enter your full name: ");
         scanner.nextLine();
+        System.out.print("Enter your full name: ");
         String fullName = scanner.nextLine();
         System.out.print("Enter your email: ");
         String email = ValidateInput.validateEmail();

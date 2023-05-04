@@ -1,10 +1,13 @@
+import builder.FlightConcreteBuilder;
+import builder.abstraction.FlightBuilder;
+import entity.abstraction.Airlines;
+import services.BookingService;
 import services.FlightService;
-import utils.DataReader;
-import utils.DateTime;
-import utils.display.BookingView;
+import services.abstraction.UserService;
+import utils.MyDateTime;
+import utils.RandomEverything;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,9 +29,17 @@ public class IOTest {
 //        DataWriter.storeRegisteredUser(customer, "src/data/customers.csv");
 //        AirLinesCompany airLinesCompany = UserDirector
 //                .buildAirLines("ChungPhungPhat AirLines", "cppairlines@gmail.com","cpp", 84900900900L);
-        System.out.println(generateFlightCode());
-        System.out.println(DateTime.getToday());
-        BookingView.displayBookingView();
+//        BookingService.displayBookingView();
+//        System.out.println(generateFlightCode());
+//        RandomEverything.randomCrew().forEach(System.out::println);
+//        FlightService.airPortUnrealDistance.forEach((key,value) -> System.out.println(key + value));
+//        String[] route = RandomEverything.randomLocation();
+//        System.out.println(route[0]);
+//        System.out.println(route[1]);
+//        FlightService.getFlightList().clear();
+//        FlightService.getFlightList().addAll(RandomEverything.random100Flights());
+//        FlightService.updateFlightList();
+        System.out.println(MyDateTime.getToday());
     }
     public static String generateFlightCode() {
         StringBuilder result = new StringBuilder();
@@ -38,8 +49,8 @@ public class IOTest {
         while (matcher.find()) {
             result.append(matcher.group());
         }
-        result.append(departTime.getDayOfMonth()).append(departTime.getMonthValue())
-                .append("_").append(departTime.getDayOfWeek());
+        result.append(MyDateTime.toDayAndMonth(departTime))
+                .append("-").append(departTime.getDayOfWeek());
         result.append("_");
         matcher = pattern.matcher("HaNoi");
         while (matcher.find()) {
@@ -52,6 +63,14 @@ public class IOTest {
         }
         return result.toString();
     }
-
+    public static void flightTest(){
+        FlightBuilder builder = new FlightConcreteBuilder();
+        Airlines provider = (Airlines) UserService.getAirLinesCompanyList().get(0);
+//        builder.setProvider(provider)
+//                .setAirplane(new AirPlane())
+//                .setDeparture("SGN")
+//                .setDestination("HAN")
+//                .s
+    }
 }
 

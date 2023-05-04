@@ -15,6 +15,7 @@ public class ValidateInput {
         while (true){
             try {
                 input = scanner.nextInt();
+                scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input!");
@@ -34,7 +35,18 @@ public class ValidateInput {
                 scanner.next();
             }
         }
-
+    }
+    public static double validateDouble(){
+        double input;
+        while (true) {
+            try {
+                input = scanner.nextDouble();
+                return input;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input!");
+                scanner.next();
+            }
+        }
     }
 
     public static String validateEmail() {

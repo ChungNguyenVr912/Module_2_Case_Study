@@ -4,6 +4,7 @@ import builder.abstraction.AbstractUserBuilder;
 import entity.AirLinesCompany;
 
 public class AirLinesBuilder extends AbstractUserBuilder {
+    private double priceMulti;
     @Override
     public AirLinesBuilder setFullName(String fullName) {
         this.fullName = fullName;
@@ -27,7 +28,11 @@ public class AirLinesBuilder extends AbstractUserBuilder {
         this.phoneNumber = phoneNumber;
         return this;
     }
+    public AirLinesBuilder setPriceMulti(double priceMulti){
+        this.priceMulti = priceMulti;
+        return this;
+    }
     public AirLinesCompany build(){
-        return new AirLinesCompany(fullName,email, passWord, phoneNumber);
+        return new AirLinesCompany(fullName,email, passWord, phoneNumber, priceMulti);
     }
 }

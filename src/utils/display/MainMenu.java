@@ -1,5 +1,6 @@
 package utils.display;
 
+import services.BookingService;
 import services.abstraction.UserService;
 import utils.ValidateInput;
 
@@ -20,7 +21,7 @@ public class MainMenu {
         switch (input){
             case 1 -> AccountDisplay.getInstance().displaySignIn();
             case 2 -> AccountDisplay.getInstance().displaySignUp("customer");
-            case 3 -> System.out.println("Coming soon!");
+            case 3 -> BookingService.displayBookingView();
         }
         System.out.println(UserService.getStatus());
         try {

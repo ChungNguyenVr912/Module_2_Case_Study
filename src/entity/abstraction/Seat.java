@@ -1,7 +1,18 @@
 package entity.abstraction;
 
-public abstract class Seat {
+import java.io.Serializable;
+
+public abstract class Seat implements Serializable {
+    protected String seatCode;
     protected boolean booked = false;
+
+    public String getSeatCode() {
+        return seatCode;
+    }
+
+    public void setSeatCode(String seatCode) {
+        this.seatCode = seatCode;
+    }
 
     public boolean isBooked() {
         return booked;
@@ -11,7 +22,7 @@ public abstract class Seat {
         this.booked = booked;
     }
 
-    public abstract float getPriceMulti();
+    public abstract double getPriceMulti();
 
-    public abstract void setPriceMulti(float priceMulti);
+    public abstract void setPriceMulti(double priceMulti);
 }

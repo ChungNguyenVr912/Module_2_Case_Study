@@ -1,8 +1,8 @@
 package utils.display;
 
 import entity.Customer;
+import services.BookingService;
 import services.abstraction.UserService;
-import utils.DataWriter;
 import utils.ValidateInput;
 
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class CustomerView {
                     """);
             int option = ValidateInput.validateInteger();
             switch (option) {
-                case 1 -> BookingView.displayBookingView();
+                case 1 -> BookingService.displayBookingView();
                 case 2 -> displayUpdateInformation();
                 case 3 -> {
                     UserService.setCurrentUser(null);

@@ -3,17 +3,20 @@ package entity;
 import entity.abstraction.Seat;
 
 public class BusinessSeat extends Seat {
-    private float priceMulti = 2;
-    public BusinessSeat(){
+
+    private double priceMulti = 2;
+
+    public BusinessSeat(String seatCode) {
+        this.seatCode = seatCode;
     }
 
     @Override
-    public float getPriceMulti() {
+    public double getPriceMulti() {
         return priceMulti;
     }
 
     @Override
-    public void setPriceMulti(float priceMulti) {
+    public void setPriceMulti(double priceMulti) {
         this.priceMulti = priceMulti;
     }
 }

@@ -1,8 +1,8 @@
 package builder.abstraction;
 
-import entity.AirPlane;
 import entity.Flight;
 import entity.abstraction.Airlines;
+import entity.abstraction.AirPlane;
 import java.time.LocalDateTime;
 
 public interface FlightBuilder {

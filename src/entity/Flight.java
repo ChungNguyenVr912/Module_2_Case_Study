@@ -1,11 +1,17 @@
 package entity;
 
 import entity.abstraction.Airlines;
+import entity.abstraction.AirPlane;
+import entity.abstraction.FlightInfo;
+import utils.MyDateTime;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Flight {
+public class Flight implements FlightInfo,Serializable {
+    private static int FID = 1;
     private Airlines provider;
     private AirPlane airPlane;
     private String departure;
@@ -14,7 +20,7 @@ public class Flight {
     private LocalDateTime arrivalTime;
     private String crewInfo;
     private String flightCode ="";
-    private double basePrice;
+    private long basePrice;
 
     public Flight(Airlines provider, AirPlane airPlane, String departure, String destination
             , LocalDateTime departTime, LocalDateTime arrivalTime, String crewInfo, double basePrice) {
@@ -25,7 +31,8 @@ public class Flight {
         this.departTime = departTime;
         this.arrivalTime = arrivalTime;
         this.crewInfo = crewInfo;
-        this.basePrice = basePrice;
+        this.basePrice = ((long)basePrice) - ((long)basePrice%10000);
+        FID++;
         setFlightCode();
     }
 
@@ -36,34 +43,24 @@ public class Flight {
         while (matcher.find()) {
             result.append(matcher.group());
         }
-        result.append(departTime.getDayOfMonth()).append(departTime.getMonthValue())
-                .append("_").append(departTime.getDayOfWeek());
-        result.append("_");
-        matcher = pattern.matcher(departure);
-        while (matcher.find()) {
-            result.append(matcher.group());
-        }
-        result.append("-");
-        matcher = pattern.matcher(destination);
-        while (matcher.find()) {
-            result.append(matcher.group());
-        }
-        flightCode =  result.toString();
+        result.delete(result.length()-1,result.length());
+        result.append(MyDateTime.toDayAndMonth(departTime)).append(String.format("%04d",FID));
+        flightCode = result.toString();
     }
 
-    public Airlines getProvider() {
-        return provider;
+    public String getProviderName() {
+        return provider.getFullName();
     }
 
     public void setProvider(Airlines provider) {
         this.provider = provider;
     }
 
-    public AirPlane getAirPlane() {
+    public AirPlane getAirplane() {
         return airPlane;
     }
 
-    public void setAirPlane(AirPlane airPlane) {
+    public void setAirplaneInfo(AirPlane airPlane) {
         this.airPlane = airPlane;
     }
 
@@ -120,6 +117,14 @@ public class Flight {
     }
 
     public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
+        this.basePrice = (long)basePrice;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-14s", flightCode) + MyDateTime.toHourAndMinute(departTime)
+                +"\t" + departure + "-" + destination +"\t"
+                + MyDateTime.toHourAndMinute(arrivalTime) + "\tDate:" + MyDateTime.toDayMMMMYear(departTime)
+                + "\tTemp Price: " + basePrice + "VND";
     }
 }

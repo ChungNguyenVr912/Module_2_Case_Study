@@ -3,8 +3,8 @@ package builder.director;
 import builder.FlightConcreteBuilder;
 import builder.abstraction.FlightBuilder;
 import entity.Flight;
-import entity.AirPlane;
 import entity.abstraction.Airlines;
+import entity.abstraction.AirPlane;
 
 import java.time.LocalDateTime;
 

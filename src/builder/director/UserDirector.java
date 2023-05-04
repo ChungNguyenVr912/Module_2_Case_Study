@@ -28,13 +28,14 @@ public class UserDirector {
                 .setApplyDay(applyDay)
                 .build();
     }
-    public static AirLinesCompany buildAirLines(String fullName, String email, String passWord, long phoneNumber){
+    public static AirLinesCompany buildAirLines(String fullName, String email, String passWord, long phoneNumber, double priceMulti){
         AirLinesBuilder staffBuilder = new AirLinesBuilder();
         return staffBuilder
                 .setFullName(fullName)
                 .setEmail(email)
                 .setPassWord(passWord)
                 .setPhoneNumber(phoneNumber)
+                .setPriceMulti(priceMulti)
                 .build();
     }
 }

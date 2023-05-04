@@ -1,9 +1,9 @@
 package builder;
 
 import builder.abstraction.FlightBuilder;
-import entity.AirPlane;
 import entity.Flight;
 import entity.abstraction.Airlines;
+import entity.abstraction.AirPlane;
 
 import java.time.LocalDateTime;
 

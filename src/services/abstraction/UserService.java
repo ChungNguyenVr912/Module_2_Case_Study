@@ -13,7 +13,7 @@ import utils.display.StaffView;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UserService implements UserServiceInterface {
+public abstract class UserService  {
     protected static final String CUSTOMER_DATA_URL = "src/data/customers.csv";
     protected static final String STAFF_DATA_URL = "src/data/staffs.csv";
     protected static final String AIRLINES_DATA_URL = "src/data/airlines.csv";
