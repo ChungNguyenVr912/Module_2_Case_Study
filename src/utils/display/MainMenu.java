@@ -24,10 +24,9 @@ public class MainMenu {
             case 3 -> BookingService.displayBookingView();
         }
         System.out.println(UserService.getStatus());
-        try {
-            System.out.println("Hello " + UserService.getCurrentUser().getFullName());
-        }catch (NullPointerException e){
-            System.err.println("Ối dồi ôi!\n");
+        if (UserService.getCurrentUser() != null){
+            System.out.print("Hello " + UserService.getCurrentUser().getFullName());
+            System.out.println("\uD83D\uDE00");
         }
         UserService.displayViewByUser();
     }

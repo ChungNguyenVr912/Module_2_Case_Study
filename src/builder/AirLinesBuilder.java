@@ -1,29 +1,26 @@
 package builder;
 
-import builder.abstraction.AbstractUserBuilder;
-import entity.AirLinesCompany;
+import builder.abstraction.UserBuilder;
+import entity.user_impl.AirLinesAccount;
 
-public class AirLinesBuilder extends AbstractUserBuilder {
+public class AirLinesBuilder extends UserBuilder {
     private double priceMulti;
-    @Override
+
     public AirLinesBuilder setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
 
-    @Override
     public AirLinesBuilder setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    @Override
     public AirLinesBuilder setPassWord(String passWord) {
         this.passWord = passWord;
         return this;
     }
 
-    @Override
     public AirLinesBuilder setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
@@ -32,7 +29,7 @@ public class AirLinesBuilder extends AbstractUserBuilder {
         this.priceMulti = priceMulti;
         return this;
     }
-    public AirLinesCompany build(){
-        return new AirLinesCompany(fullName,email, passWord, phoneNumber, priceMulti);
+    public AirLinesAccount build(){
+        return new AirLinesAccount(fullName,email, passWord, phoneNumber, priceMulti);
     }
 }

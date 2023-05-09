@@ -1,8 +1,8 @@
 package builder.abstraction;
 
-public interface UserBuilder {
-    UserBuilder setFullName(String fullName);
-    UserBuilder setEmail(String email);
-    UserBuilder setPassWord(String passWord);
-    UserBuilder setPhoneNumber(long phoneNumber);
+public abstract class UserBuilder {
+    protected String fullName;
+    protected String passWord;
+    protected String email;
+    protected long phoneNumber;
 }

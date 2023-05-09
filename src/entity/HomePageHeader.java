@@ -2,7 +2,7 @@ package entity;
 
 public enum HomePageHeader {
     TITLE("Welcome to ___ĐĂNG XUẤT KHỎI TRÁI ĐẤT___ flight booking!");
-    private String title;
+    private final String title;
 
     HomePageHeader(String title) {
         this.title = title;

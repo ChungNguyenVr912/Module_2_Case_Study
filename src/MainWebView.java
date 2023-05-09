@@ -3,6 +3,8 @@ import services.FlightService;
 import utils.RandomEverything;
 import utils.display.MainMenu;
 
+import javax.swing.*;
+
 
 public class MainWebView {
     public static void main(String[] args) {

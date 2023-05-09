@@ -1,6 +1,8 @@
 package factory;
 
-import builder.director.UserDirector;
+import builder.AirLinesBuilder;
+import builder.CustomerBuilder;
+import builder.StaffBuilder;
 import entity.abstraction.User;
 import utils.MyDateTime;
 import utils.ValidateInput;
@@ -21,15 +23,33 @@ public class UserFactory {
                 System.out.print("Enter age: ");
                 int age = ValidateInput.validateInteger();
                 String applyDay = MyDateTime.getToday();
-                return UserDirector.buildStaff(fullName, email, passWord, phoneNumber, age, applyDay);
+                return new StaffBuilder()
+                        .setFullName(fullName)
+                        .setEmail(email)
+                        .setPassWord(passWord)
+                        .setPhoneNumber(phoneNumber)
+                        .setAge(age)
+                        .setApplyDay(applyDay)
+                        .build();
             }
             case "customer" -> {
-                return UserDirector.buildCustomer(fullName, email, passWord, phoneNumber);
+                return new CustomerBuilder()
+                        .setFullName(fullName)
+                        .setEmail(email)
+                        .setPassWord(passWord)
+                        .setPhoneNumber(phoneNumber)
+                        .build();
             }
             case "airlines" -> {
-                System.out.print("Enter price multi:");
+                System.out.println("Enter price multi:");
                 double priceMulti = ValidateInput.validateDouble();
-                return UserDirector.buildAirLines(fullName, email, passWord, phoneNumber, priceMulti);
+                return new AirLinesBuilder()
+                        .setFullName(fullName)
+                        .setEmail(email)
+                        .setPassWord(passWord)
+                        .setPhoneNumber(phoneNumber)
+                        .setPriceMulti(priceMulti)
+                        .build();
             }
             default -> {
                 return null;

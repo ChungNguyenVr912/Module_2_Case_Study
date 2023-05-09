@@ -1,6 +1,7 @@
 package utils.display;
 
 import services.BookingService;
+import services.TicketAndReportService;
 import services.abstraction.UserService;
 import utils.ValidateInput;
 
@@ -15,9 +16,12 @@ public class StaffView {
         int option = ValidateInput.validateInteger();
         switch (option){
             case 1 -> BookingService.displayBookingView();
-            case 2 -> System.out.println("ehe, con cai nit");
-            case 3 -> {UserService.setCurrentUser(null);
-                return;}
+            case 2 -> TicketAndReportService.report();
+            case 3 -> {
+                UserService.setCurrentUser(null);
+                UserService.setStatus("");
+                return;
+            }
         }
         displayStaffView();
     }

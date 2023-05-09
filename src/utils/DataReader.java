@@ -1,6 +1,8 @@
 package utils;
 
 import entity.Flight;
+import entity.Ticket;
+import entity.abstraction.Report;
 import entity.abstraction.User;
 import java.io.*;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class DataReader {
         return userList;
     }
 
-    public static List<Flight> getFlightHistory(String sourceUrl) {
+    public static List<Flight> getFlightList(String sourceUrl) {
         List<Flight> flightList;
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(sourceUrl))) {
             flightList = (List<Flight>) objectInputStream.readObject();
@@ -62,5 +64,31 @@ public class DataReader {
             e.printStackTrace();
         }
         return airPortPos;
+    }
+    public static List<Ticket> getTicketData(String sourceUrl) {
+        List<Ticket> ticketList;
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(sourceUrl))) {
+            ticketList = (List<Ticket>) objectInputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found!");
+            ticketList = new ArrayList<>();
+        } catch (IOException e) {
+            System.err.println("Read fail!" + sourceUrl);
+            ticketList = new ArrayList<>();
+        }
+        return ticketList;
+    }
+    public static List<Report> getReportData(String sourceUrl) {
+        List<Report> reportList;
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(sourceUrl))) {
+            reportList = (List<Report>) objectInputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found!");
+            reportList = new ArrayList<>();
+        } catch (IOException e) {
+            System.err.println("Read fail!" + sourceUrl);
+            reportList = new ArrayList<>();
+        }
+        return reportList;
     }
 }

@@ -1,31 +1,27 @@
 package builder;
 
-import builder.abstraction.AbstractUserBuilder;
-import entity.Staff;
+import builder.abstraction.UserBuilder;
+import entity.user_impl.Staff;
 
-public class StaffBuilder extends AbstractUserBuilder {
+public class StaffBuilder extends UserBuilder {
     private int age;
     private String applyDay;
 
-    @Override
     public StaffBuilder setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
 
-    @Override
     public StaffBuilder setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    @Override
     public StaffBuilder setPassWord(String passWord) {
         this.passWord = passWord;
         return this;
     }
 
-    @Override
     public StaffBuilder setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;

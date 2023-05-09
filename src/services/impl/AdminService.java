@@ -1,9 +1,10 @@
-package services;
+package services.impl;
 
-import entity.AirLinesCompany;
-import entity.Customer;
-import entity.Staff;
+import entity.user_impl.AirLinesAccount;
+import entity.user_impl.Customer;
+import entity.user_impl.Staff;
 import entity.abstraction.User;
+import services.TicketAndReportService;
 import services.abstraction.UserService;
 import utils.display.AccountDisplay;
 
@@ -12,19 +13,10 @@ import java.util.Scanner;
 
 public class AdminService extends UserService {
     private static final AdminService instance = new AdminService();
-
-    private AdminService() {
-    }
-
+    private AdminService() {}
     public static AdminService getInstance() {
         return instance;
     }
-
-
-//    public void createUser(String fullName, String email, String passWord, long phoneNumber) {
-//        AccountDisplay.getInstance().displaySignUp("customer");
-//    }
-
     public void addStaff() {
         AccountDisplay.getInstance().displaySignUp("staff");
     }
@@ -41,10 +33,10 @@ public class AdminService extends UserService {
         });
     }
     public void viewAirlinesList() {
-        List<User> users = UserService.airLinesCompanyList;
+        List<User> users = UserService.airLinesList;
         System.out.println("Total partner: " + users.size());
         users.forEach(user -> {
-            AirLinesCompany airlines = (AirLinesCompany) user;
+            AirLinesAccount airlines = (AirLinesAccount) user;
             System.out.println(airlines);
         });
     }
@@ -54,7 +46,7 @@ public class AdminService extends UserService {
         System.out.println("Total user: " + users.size());
         System.out.println("Show all user? (Y/N)");
         Scanner scanner = new Scanner(System.in);
-        String confirm = scanner.next();
+        String confirm = scanner.nextLine();
         switch (confirm) {
             case "y", "Y", "yes":
                 users.forEach(user -> {
@@ -63,5 +55,8 @@ public class AdminService extends UserService {
                 });
             default:
         }
+    }
+    public void viewAllReport(){
+        TicketAndReportService.getReportList().forEach(System.out::println);
     }
 }

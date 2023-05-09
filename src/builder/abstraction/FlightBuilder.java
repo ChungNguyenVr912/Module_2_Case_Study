@@ -1,12 +1,11 @@
 package builder.abstraction;
 
 import entity.Flight;
-import entity.abstraction.Airlines;
 import entity.abstraction.AirPlane;
 import java.time.LocalDateTime;
 
 public interface FlightBuilder {
-    FlightBuilder setProvider(Airlines provider);
+    FlightBuilder setAirLines(String airLines);
     FlightBuilder setAirplane(AirPlane airPlane);
     FlightBuilder setDeparture(String departure);
     FlightBuilder setDestination(String destination);

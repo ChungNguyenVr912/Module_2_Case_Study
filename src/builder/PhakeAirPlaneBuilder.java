@@ -1,5 +1,6 @@
 package builder;
 
+import entity.BusinessAirPlane;
 import entity.BusinessSeat;
 import entity.EconomyAirPlane;
 import entity.EconomySeat;
@@ -53,6 +54,6 @@ public class PhakeAirPlaneBuilder {
             }
         }
         String airPlaneName = listPlaneName.get(random.nextInt(3));
-        return new EconomyAirPlane(airPlaneName, seatList);
+        return new BusinessAirPlane(airPlaneName, seatList);
     }
 }

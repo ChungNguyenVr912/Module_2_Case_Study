@@ -1,7 +1,6 @@
 import builder.FlightConcreteBuilder;
 import builder.abstraction.FlightBuilder;
 import entity.abstraction.Airlines;
-import services.BookingService;
 import services.FlightService;
 import services.abstraction.UserService;
 import utils.MyDateTime;
@@ -22,7 +21,7 @@ public class IOTest {
 //        AdminService.getInstance().addStaff();
 //        AdminService.getInstance().viewStaffList();
 //        AdminService.getInstance().checkUser();
-//        List<User> userList = DataReader.getRegisteredUser("src/data/admin.csv");
+//        DataWriter.storeRegisteredUser(Admin.getInstance(),"src/data/admin.csv");
 //        System.out.println(userList.get(0));
 //        Customer customer = UserDirector.
 //                buildCustomer("Chung", "chung@gmail.com", "Aaa111@1", 8412312383L);
@@ -36,11 +35,12 @@ public class IOTest {
 //        String[] route = RandomEverything.randomLocation();
 //        System.out.println(route[0]);
 //        System.out.println(route[1]);
-//        FlightService.getFlightList().clear();
-//        FlightService.getFlightList().addAll(RandomEverything.random100Flights());
-//        FlightService.updateFlightList();
+        FlightService.getFlightList().clear();
+        FlightService.getFlightList().addAll(RandomEverything.randomFlights(2000));
+        FlightService.updateFlightList();
         System.out.println(MyDateTime.getToday());
     }
+
     public static String generateFlightCode() {
         StringBuilder result = new StringBuilder();
         Pattern pattern = Pattern.compile("[A-Z]");
@@ -63,9 +63,10 @@ public class IOTest {
         }
         return result.toString();
     }
-    public static void flightTest(){
+
+    public static void flightTest() {
         FlightBuilder builder = new FlightConcreteBuilder();
-        Airlines provider = (Airlines) UserService.getAirLinesCompanyList().get(0);
+        Airlines provider = (Airlines) UserService.getAirLinesList().get(0);
 //        builder.setProvider(provider)
 //                .setAirplane(new AirPlane())
 //                .setDeparture("SGN")

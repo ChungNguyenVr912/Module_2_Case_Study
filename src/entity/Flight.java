@@ -1,8 +1,6 @@
 package entity;
 
-import entity.abstraction.Airlines;
 import entity.abstraction.AirPlane;
-import entity.abstraction.FlightInfo;
 import utils.MyDateTime;
 
 import java.io.Serializable;
@@ -10,9 +8,9 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Flight implements FlightInfo,Serializable {
+public class Flight implements Serializable {
     private static int FID = 1;
-    private Airlines provider;
+    private String airLines;
     private AirPlane airPlane;
     private String departure;
     private String destination;
@@ -22,9 +20,9 @@ public class Flight implements FlightInfo,Serializable {
     private String flightCode ="";
     private long basePrice;
 
-    public Flight(Airlines provider, AirPlane airPlane, String departure, String destination
+    public Flight(String airLines, AirPlane airPlane, String departure, String destination
             , LocalDateTime departTime, LocalDateTime arrivalTime, String crewInfo, double basePrice) {
-        this.provider = provider;
+        this.airLines = airLines;
         this.airPlane = airPlane;
         this.departure = departure;
         this.destination = destination;
@@ -39,7 +37,7 @@ public class Flight implements FlightInfo,Serializable {
     private void setFlightCode() {
         StringBuilder result = new StringBuilder();
         Pattern pattern = Pattern.compile("[A-Z]");
-        Matcher matcher = pattern.matcher(provider.getFullName());
+        Matcher matcher = pattern.matcher(airLines);
         while (matcher.find()) {
             result.append(matcher.group());
         }
@@ -49,11 +47,11 @@ public class Flight implements FlightInfo,Serializable {
     }
 
     public String getProviderName() {
-        return provider.getFullName();
+        return airLines;
     }
 
-    public void setProvider(Airlines provider) {
-        this.provider = provider;
+    public void setAirLines(String airLines) {
+        this.airLines = airLines;
     }
 
     public AirPlane getAirplane() {
@@ -122,9 +120,13 @@ public class Flight implements FlightInfo,Serializable {
 
     @Override
     public String toString() {
+        String flightClass = "Economy class only";
+        if (airPlane instanceof  BusinessAirPlane){
+            flightClass = "with Business class";
+        }
         return String.format("%-14s", flightCode) + MyDateTime.toHourAndMinute(departTime)
                 +"\t" + departure + "-" + destination +"\t"
                 + MyDateTime.toHourAndMinute(arrivalTime) + "\tDate:" + MyDateTime.toDayMMMMYear(departTime)
-                + "\tTemp Price: " + basePrice + "VND";
+                + "\tTemp Price: " + basePrice + "VND" + String.format("\t(%s)",flightClass);
     }
 }

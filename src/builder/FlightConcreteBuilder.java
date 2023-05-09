@@ -2,13 +2,12 @@ package builder;
 
 import builder.abstraction.FlightBuilder;
 import entity.Flight;
-import entity.abstraction.Airlines;
 import entity.abstraction.AirPlane;
 
 import java.time.LocalDateTime;
 
 public class FlightConcreteBuilder implements FlightBuilder {
-    private Airlines provider;
+    private String airLines;
     private AirPlane airPlane;
     private String departure;
     private String destination;
@@ -21,8 +20,8 @@ public class FlightConcreteBuilder implements FlightBuilder {
     }
 
     @Override
-    public FlightConcreteBuilder setProvider(Airlines provider) {
-        this.provider = provider;
+    public FlightConcreteBuilder setAirLines(String airLines) {
+        this.airLines = airLines;
         return this;
     }
 
@@ -68,6 +67,6 @@ public class FlightConcreteBuilder implements FlightBuilder {
     }
 
     public Flight build() {
-        return new Flight(provider, airPlane, departure, destination, departTime, arrivalTime, crewInfo, basePrice);
+        return new Flight(airLines, airPlane, departure, destination, departTime, arrivalTime, crewInfo, basePrice);
     }
 }

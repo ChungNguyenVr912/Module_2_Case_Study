@@ -1,4 +1,4 @@
-package entity;
+package entity.user_impl;
 
 import entity.abstraction.User;
 

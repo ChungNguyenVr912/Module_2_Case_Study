@@ -1,7 +1,7 @@
 package utils;
 
+import builder.FlightConcreteBuilder;
 import builder.PhakeAirPlaneBuilder;
-import builder.director.FlightDirector;
 import entity.Flight;
 import entity.abstraction.AirPlane;
 import entity.abstraction.Airlines;
@@ -18,36 +18,57 @@ public class RandomEverything {
     private static final Random random = new Random();
 
     public static Flight randomFlight() {
-        List<User> airlinesList = UserService.getAirLinesCompanyList();
-        Airlines provider = (Airlines) airlinesList.get(random.nextInt(airlinesList.size() - 1));
+        List<User> airlinesList = UserService.getAirLinesList();
+        Airlines airlines = (Airlines) airlinesList.get(random.nextInt(airlinesList.size()));
         String[] route = randomLocation();
         String departure = route[0];
         String destination = route[1];
+        String airLinesName = airlines.getFullName();
+        double priceMulti = airlines.getPriceMulti();
         LocalDateTime departTime = randomDepartTimeInNext7Day();
-        int flyTime = getFlyTime(departure, destination);
+        int flyTime = FlightService.getFlightDuration(departure,destination);// in minute
         LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
-        double basePrice = BookingService.getBaseCost(departure, destination, departTime);
-        return FlightDirector.buildFlight(provider, randomAirPlane()
-                , departure, destination, departTime, arrivalTime, randomCrewInfo(), basePrice);
+        double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
+        return new FlightConcreteBuilder()
+                .setAirLines(airLinesName)
+                .setAirplane(randomAirPlane())
+                .setDeparture(departure)
+                .setDestination(destination)
+                .setDepartTime(departTime)
+                .setArrivalTime(arrivalTime)
+                .setCrewInfo(randomCrewInfo())
+                .setBasePrice(basePrice)
+                .build();
     }
 
-    public static List<Flight> random100Flights() {
-        List<User> airlinesList = UserService.getAirLinesCompanyList();
-        Set<LocalDateTime> setDepartTime = new HashSet<>();
-        while (setDepartTime.size() < 2000) {
-            setDepartTime.add(randomDepartTimeInNext7Day());
+    public static List<Flight> randomFlights(int quantity) {
+        List<User> airlinesList = UserService.getAirLinesList();
+        Set<LocalDateTime> setOfDepartTime = new HashSet<>();
+        while (setOfDepartTime.size() < quantity) {
+            setOfDepartTime.add(randomDepartTimeInNext7Day());
         }
         List<Flight> flightList = new ArrayList<>();
-        for (LocalDateTime departTime : setDepartTime) {
-            Airlines provider = (Airlines) airlinesList.get(random.nextInt(airlinesList.size()));
+        for (LocalDateTime departTime : setOfDepartTime) {
+            Airlines airlines = (Airlines) airlinesList.get(random.nextInt(airlinesList.size()));
+            String airLinesName = airlines.getFullName();
+            double priceMulti = airlines.getPriceMulti();
             String[] route = randomLocation();
             String departure = route[0];
             String destination = route[1];
-            int flyTime = getFlyTime(departure, destination);
+            int flyTime = FlightService.getFlightDuration(departure,destination);
             LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
-            double basePrice = BookingService.getBaseCost(departure, destination, departTime) * provider.getPriceMulti();
-            flightList.add(FlightDirector.buildFlight(provider, randomAirPlane()
-                    , departure, destination, departTime, arrivalTime, randomCrewInfo(), basePrice));
+            double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
+            AirPlane airPlane = randomAirPlane();
+            flightList.add(new FlightConcreteBuilder()
+                    .setAirLines(airLinesName)
+                    .setAirplane(airPlane)
+                    .setDeparture(departure)
+                    .setDestination(destination)
+                    .setDepartTime(departTime)
+                    .setArrivalTime(arrivalTime)
+                    .setCrewInfo(randomCrewInfo())
+                    .setBasePrice(basePrice)
+                    .build());
         }
         return flightList;
     }
@@ -91,15 +112,6 @@ public class RandomEverything {
         int minute = random.nextInt(6) * 10;
         int day = random.nextInt(7) + 1;
         return LocalDateTime.now().withHour(hour).withMinute(minute).withSecond(0).plusDays(day);
-    }
-
-    public static int getFlyTime(String departure, String destination) {
-        final float timeMulti = 3.85f;
-        final int baseFlyTime = 45;// in minute
-        int startPos = FlightService.airPortUnrealDistance.get(departure);
-        int endPos = FlightService.airPortUnrealDistance.get(destination);
-        int distance = Math.abs(startPos - endPos);
-        return (int) (distance * timeMulti) - ((int) (distance * timeMulti)) % 5 + baseFlyTime;
     }
 
     public static AirPlane randomAirPlane() {

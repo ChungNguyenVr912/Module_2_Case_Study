@@ -1,31 +1,27 @@
 package builder;
 
-import builder.abstraction.AbstractUserBuilder;
-import entity.Customer;
+import builder.abstraction.UserBuilder;
+import entity.user_impl.Customer;
 
-public class CustomerBuilder extends AbstractUserBuilder {
+public class CustomerBuilder extends UserBuilder {
     private long citizenID;
     private String gender;
 
-    @Override
     public CustomerBuilder setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
 
-    @Override
     public CustomerBuilder setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    @Override
     public CustomerBuilder setPassWord(String passWord) {
         this.passWord = passWord;
         return this;
     }
 
-    @Override
     public CustomerBuilder setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
