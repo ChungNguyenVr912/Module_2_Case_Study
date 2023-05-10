@@ -1,7 +1,7 @@
 package utils;
 
 import builder.FlightConcreteBuilder;
-import builder.PhakeAirPlaneBuilder;
+import factory.PhakeAirPlaneFactory;
 import entity.Flight;
 import entity.abstraction.AirPlane;
 import entity.abstraction.Airlines;
@@ -26,7 +26,7 @@ public class RandomEverything {
         String airLinesName = airlines.getFullName();
         double priceMulti = airlines.getPriceMulti();
         LocalDateTime departTime = randomDepartTimeInNext7Day();
-        int flyTime = FlightService.getFlightDuration(departure,destination);// in minute
+        int flyTime = FlightService.getFlightDuration(departure, destination);// in minute
         LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
         double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
         return new FlightConcreteBuilder()
@@ -55,7 +55,7 @@ public class RandomEverything {
             String[] route = randomLocation();
             String departure = route[0];
             String destination = route[1];
-            int flyTime = FlightService.getFlightDuration(departure,destination);
+            int flyTime = FlightService.getFlightDuration(departure, destination);
             LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
             double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
             AirPlane airPlane = randomAirPlane();
@@ -116,12 +116,10 @@ public class RandomEverything {
 
     public static AirPlane randomAirPlane() {
         int choice = random.nextInt(2);
-        AirPlane airPlane;
         if (choice == 0) {
-            airPlane = PhakeAirPlaneBuilder.buildEconomyAirPlane();
+            return PhakeAirPlaneFactory.getAirplane("economy");
         } else {
-            airPlane = PhakeAirPlaneBuilder.buildBusinessAirPlane();
+            return PhakeAirPlaneFactory.getAirplane("business");
         }
-        return airPlane;
     }
 }

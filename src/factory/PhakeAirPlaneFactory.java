@@ -1,4 +1,4 @@
-package builder;
+package factory;
 
 import entity.BusinessAirPlane;
 import entity.BusinessSeat;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PhakeAirPlaneBuilder {
-    private static ArrayList<String> listPlaneName = new ArrayList<>();
+public class PhakeAirPlaneFactory {
+    private static final ArrayList<String> listPlaneName = new ArrayList<>();
     private static final String[] prefixSeatCode = {"A", "B", "C", "D"};
     private static final Random random = new Random();
 
@@ -29,8 +29,21 @@ public class PhakeAirPlaneBuilder {
             e.printStackTrace();
         }
     }
+    public static AirPlane getAirplane(String type){
+        switch (type){
+            case "economy" -> {
+                return buildEconomyAirPlane();
+            }
+            case "business" -> {
+                return buildBusinessAirPlane();
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
 
-    public static AirPlane buildEconomyAirPlane() {
+    private static AirPlane buildEconomyAirPlane() {
         List<Seat> seatList = new ArrayList<>();
         for (int subfix = 1; subfix < 16; subfix++) {
             for (int prefix = 0; prefix < 4; prefix++) {
@@ -41,7 +54,7 @@ public class PhakeAirPlaneBuilder {
         return new EconomyAirPlane(airPlaneName, seatList);
     }
 
-    public static AirPlane buildBusinessAirPlane() {
+    private static AirPlane buildBusinessAirPlane() {
         List<Seat> seatList = new ArrayList<>();
         for (int subfix = 1; subfix < 6; subfix++) {
             for (int prefix = 0; prefix < 4; prefix++) {
