@@ -195,8 +195,8 @@ public class Ticket implements Serializable {
                 + String.format("%-15s%f\n", "Price:", price)
                 + String.format("%-15s%s\n", "PassengerName:", passengerName)
                 + String.format("%-15s", "Day of birth:") + passengerDoB + '\n'
-                + String.format("%-15s%s", "Gender:", passengerGender)
-                + String.format("%-15s%d", "PhoneNumber:", passengerPhoneNumber)
+                + String.format("%-15s%s\n", "Gender:", passengerGender)
+                + String.format("%-15s%d\n", "PhoneNumber:", passengerPhoneNumber)
                 + String.format("%-15s%s\n", "SeatCode:", seatCode)
                 + String.format("%-15s%s\n", "Baggage info:", baggageInfo)
                 + String.format("%-15s%s", "Ticket:", ticketClass);

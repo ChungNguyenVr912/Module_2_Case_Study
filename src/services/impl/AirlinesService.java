@@ -84,6 +84,7 @@ public class AirlinesService extends UserService {
         for (Flight flight : flightList) {
             if (flight.getFlightCode().equals(flightCode)) {
                 expectedFlight = flight;
+                break;
             }
         }
         if (expectedFlight == null) {

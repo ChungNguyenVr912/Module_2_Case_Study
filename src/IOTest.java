@@ -1,13 +1,17 @@
 import builder.FlightConcreteBuilder;
 import builder.abstraction.FlightBuilder;
+import entity.Ticket;
 import entity.abstraction.Airlines;
 import services.FlightService;
+import services.TicketAndReportService;
 import services.abstraction.UserService;
+import utils.DataReader;
 import utils.MyDateTime;
 import utils.RandomEverything;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +42,7 @@ public class IOTest {
         FlightService.getFlightList().clear();
         FlightService.getFlightList().addAll(RandomEverything.randomFlights(2000));
         FlightService.updateFlightList();
+//        List<Ticket> ticketList = DataReader.getTicketData("src/data/reports_and_tickets/tickets.dat");
         System.out.println(MyDateTime.getToday());
     }
 

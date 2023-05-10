@@ -39,7 +39,7 @@ public class CustomerView {
             System.out.println("3. Update phone number - " + customer.getPhoneNumber());
             System.out.println("4. Update citizen ID - " + customer.getCitizenID());
             System.out.println("5. Update day of birth - " + customer.getDayOfBirth());
-            System.out.println("6. Phẫu thuật chuyển giới(Not recommended!) - " + customer.getGender());
+            System.out.println("6. ⚧\uFE0FPhẫu thuật chuyển giới(Not recommended!) - " + customer.getGender());
             System.out.println("7. Back to reality");
             int option = ValidateInput.validateInteger();
             if (option == 7) {

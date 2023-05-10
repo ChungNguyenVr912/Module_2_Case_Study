@@ -38,7 +38,7 @@ public class BookingService {
                         + " to " + FlightService.getAirPorts().get(destination));
                 System.out.print("""
                         Option:
-                        1. Search flight.
+                        1. Search flight
                         2. Select other route
                         3. Back
                         """);
@@ -60,6 +60,7 @@ public class BookingService {
     private static void completeBooking() {
         System.out.println("Current cost: " + totalPrice);
         Seat selectedSeat = seatSelection();
+        if (selectedSeat == null)return;
         totalPrice = totalPrice * selectedSeat.getPriceMulti();
         System.out.println("Current cost: " + totalPrice);
         String baggageInfo = buyAdditionalBaggage();
@@ -215,6 +216,7 @@ public class BookingService {
                 System.out.println("Expected fly time: "
                         + FlightService.getFlightDuration(flight.getDepartTime(), flight.getArrivalTime()));
                 System.out.println("Crew: " + flight.getCrewInfo());
+                break;
             }
         }
     }
@@ -244,14 +246,15 @@ public class BookingService {
         do {
             System.out.println("""
                     * Select seat: (O is exist, X is booked)
-                    Enter seat code:
+                    Enter seat code: (type "cancel" to cancel)
                     """);
             String seatCode = scanner.nextLine();
+            if (seatCode.equals("cancel"))return null;
             boolean exist = true;
             for (Seat seat : seatList) {
                 if (seat.getSeatCode().equals(seatCode)) {
                     if (seat.isBooked()) {
-                        System.out.println("Seat not exist!");
+                        System.out.println("Seat is already booked!");
                         exist = false;
                         break;
                     } else {

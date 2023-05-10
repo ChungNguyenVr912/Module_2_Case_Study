@@ -40,6 +40,7 @@ public class TicketAndReportService {
     }
 
     public static void printTicket(Ticket ticket) {
+        ticketList.add(ticket);
         DataWriter.updateTicketList(TICKET_LIST_URL);
         System.out.println(ticket);
     }

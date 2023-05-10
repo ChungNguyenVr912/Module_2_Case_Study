@@ -1,10 +1,8 @@
 package utils;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +19,7 @@ public class ValidateInput {
                 input = Integer.parseInt(scanner.nextLine());
                 return input;
             } catch (Exception e) {
-                System.out.println("Invalid input!");
+                System.out.println("Invalid input!\uD83E\uDD23");
             }
         }
     }
@@ -45,7 +43,7 @@ public class ValidateInput {
                 input = Double.parseDouble(scanner.nextLine());
                 return input;
             } catch (Exception e) {
-                System.out.println("Invalid input!");
+                System.out.println("Invalid input! ");
             }
         }
     }

@@ -13,9 +13,9 @@ public class MainMenu {
     }
     public void displayMainMenu(){
         System.out.println("""
-                1. Sign in
-                2. Sign up
-                3. Start booking
+                1. Sign in 💖
+                2. Sign up 💙
+                3. Start booking ✈️
                 """);
         int input = ValidateInput.validateInteger();
         switch (input){
@@ -25,8 +25,7 @@ public class MainMenu {
         }
         System.out.println(UserService.getStatus());
         if (UserService.getCurrentUser() != null){
-            System.out.print("Hello " + UserService.getCurrentUser().getFullName());
-            System.out.println("\uD83D\uDE00");
+            System.out.println("Hello " + UserService.getCurrentUser().getFullName() + "\uD83D\uDD25");
         }
         UserService.displayViewByUser();
     }
