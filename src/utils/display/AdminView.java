@@ -1,5 +1,7 @@
 package utils.display;
 
+import entity.abstraction.Report;
+import services.TicketAndReportService;
 import services.impl.AdminService;
 import services.abstraction.UserService;
 import utils.ValidateInput;
@@ -47,15 +49,48 @@ public class AdminView {
                     """);
             int option = ValidateInput.validateInteger();
             switch (option) {
-                case 1 -> System.out.println("hehe");
-                case 2 -> System.out.println("hehehe");
-                case 3 -> System.out.println("hehehehe");
+                case 1 -> showDayReport();
+                case 2 -> showMonthReport();
+                case 3 -> showYearReport();
                 case 4 -> AdminService.getInstance().viewAllReport();
                 case 5 -> {
                     return;
                 }
             }
+        }
+    }
 
+    private static void showYearReport() {
+        System.out.println("Enter year: ");
+        int year = ValidateInput.validateInteger();
+        Report report = TicketAndReportService.getYearReport(year);
+        if (report != null){
+            System.out.println(report);
+        }else {
+            System.out.println("No report");
+        }
+    }
+
+    private static void showMonthReport() {
+        System.out.println("Enter month: (MM/yyyy)");
+        String month = scanner.nextLine();
+        Report report = TicketAndReportService.getMonthReport(month);
+        if (report != null){
+            System.out.println(report);
+        }else {
+            System.out.println("No report");
+        }
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+    private static void showDayReport() {
+        System.out.println("Enter date: (dd/MM/yyyy)");
+        String date = scanner.nextLine();
+        Report report = TicketAndReportService.getDayReport(date);
+        if (report != null){
+            System.out.println(report);
+        }else {
+            System.out.println("No report");
         }
     }
 }

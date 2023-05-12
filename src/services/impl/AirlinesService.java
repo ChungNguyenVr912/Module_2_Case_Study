@@ -63,7 +63,19 @@ public class AirlinesService extends UserService {
     }
 
     public static void viewFlightHistory() {
-
+        List<Flight> flightList = getAllFlight();
+        System.out.println("Departed flights: ");
+        flightList.forEach(flight -> {
+            if (flight.getDepartTime().isBefore(LocalDateTime.now())) {
+                System.out.println(flight);
+            }
+        });
+        System.out.println("Upcoming flights:");
+        flightList.forEach(flight -> {
+            if (flight.getDepartTime().isAfter(LocalDateTime.now())) {
+                System.out.println(flight);
+            }
+        });
     }
 
     private static List<Flight> getAllFlight() {
@@ -80,8 +92,14 @@ public class AirlinesService extends UserService {
         System.out.println("Enter flight code:");
         String flightCode = scanner.nextLine();
         List<Flight> flightList = getAllFlight();
-        Flight expectedFlight = null;
+        List<Flight> ableToModififlightList = new ArrayList<>();
         for (Flight flight : flightList) {
+            if (flight.getDepartTime().isAfter(LocalDateTime.now().plusDays(1))) {
+                ableToModififlightList.add(flight);
+            }
+        }
+        Flight expectedFlight = null;
+        for (Flight flight : ableToModififlightList) {
             if (flight.getFlightCode().equals(flightCode)) {
                 expectedFlight = flight;
                 break;

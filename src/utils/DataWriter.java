@@ -1,7 +1,11 @@
 package utils;
 
 import entity.Flight;
+import entity.abstraction.Report;
 import entity.abstraction.User;
+import entity.report_impl.DayReport;
+import entity.report_impl.MonthReport;
+import entity.report_impl.YearReport;
 import services.TicketAndReportService;
 
 import java.io.*;
@@ -46,6 +50,52 @@ public class DataWriter {
              ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream)) {
             outputStream.writeObject(TicketAndReportService.getReportList());
             System.out.println("Update success! (Reports)");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateReportListToCSV(List<Report> reportList, String baseTargetUrl) {
+        String targetUrl = baseTargetUrl;
+        if (reportList.size() == 0) {
+            System.out.println("List empty!");
+            return;
+        }
+        if (reportList.get(0) instanceof DayReport) {
+            targetUrl = targetUrl + "_day.csv";
+        } else if (reportList.get(0) instanceof MonthReport) {
+            targetUrl = targetUrl + "_month.csv";
+        } else if (reportList.get(0) instanceof YearReport) {
+            targetUrl = targetUrl + "_year.csv";
+        }
+        try (FileWriter fileWriter = new FileWriter(targetUrl);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            for (Report report : reportList) {
+                if (report instanceof DayReport dayReport) {
+                    String line = dayReport.getReportID()
+                            + "," + dayReport.getDayReport()
+                            + "," + dayReport.getReportTime()
+                            + "," + dayReport.getTotalRevenue()
+                            + "," + dayReport.getTotalTicketSold();
+                    bufferedWriter.write(line + "\n");
+                }
+                if (report instanceof MonthReport monthReport) {
+                    String line = monthReport.getReportID()
+                            + "," + monthReport.getMonthReport()
+                            + "," + monthReport.getReportTime()
+                            + "," + monthReport.getTotalRevenue()
+                            + "," + monthReport.getTotalTicketSold();
+                    bufferedWriter.write(line + "\n");
+                }
+                if (report instanceof YearReport yearReport) {
+                    String line = yearReport.getReportID()
+                            + "," + yearReport.getYearReport()
+                            + "," + yearReport.getReportTime()
+                            + "," + yearReport.getTotalRevenue()
+                            + "," + yearReport.getTotalTicketSold();
+                    bufferedWriter.write(line + "\n");
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

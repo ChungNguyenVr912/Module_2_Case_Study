@@ -39,8 +39,8 @@ public class IOTest {
 //        String[] route = RandomEverything.randomLocation();
 //        System.out.println(route[0]);
 //        System.out.println(route[1]);
-        FlightService.getFlightList().clear();
-        FlightService.getFlightList().addAll(RandomEverything.randomFlights(2000));
+//        FlightService.getFlightList().clear();
+        FlightService.getFlightList().addAll(RandomEverything.randomFlights(1000));
         FlightService.updateFlightList();
 //        List<Ticket> ticketList = DataReader.getTicketData("src/data/reports_and_tickets/tickets.dat");
         System.out.println(MyDateTime.getToday());

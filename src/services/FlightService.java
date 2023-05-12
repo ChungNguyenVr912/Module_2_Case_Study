@@ -14,9 +14,9 @@ public class FlightService {
     private static final String FLIGHT_DATA_URL = "src/data/flight_history.dat";
     private static final String AIR_PORT_LIST_URL = "src/data/air_port_list.txt";
     private static final String AIR_PORT_POS_URL = "src/data/airport_unreal_pos.txt";
-    private static List<Flight> flightList;
-    private static HashMap<String, String> airPorts;
-    public static HashMap<String, Integer> airPortUnrealDistance;
+    private static final List<Flight> flightList;
+    private static final HashMap<String, String> airPorts;
+    public static final HashMap<String, Integer> airPortUnrealDistance;
 
     static {
         flightList = DataReader.getFlightList(FLIGHT_DATA_URL);

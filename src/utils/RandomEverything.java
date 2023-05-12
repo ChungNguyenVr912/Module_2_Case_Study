@@ -25,7 +25,7 @@ public class RandomEverything {
         String destination = route[1];
         String airLinesName = airlines.getFullName();
         double priceMulti = airlines.getPriceMulti();
-        LocalDateTime departTime = randomDepartTimeInNext7Day();
+        LocalDateTime departTime = randomDepartTimeInNextNumberOfDay(7);
         int flyTime = FlightService.getFlightDuration(departure, destination);// in minute
         LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
         double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
@@ -45,7 +45,7 @@ public class RandomEverything {
         List<User> airlinesList = UserService.getAirLinesList();
         Set<LocalDateTime> setOfDepartTime = new HashSet<>();
         while (setOfDepartTime.size() < quantity) {
-            setOfDepartTime.add(randomDepartTimeInNext7Day());
+            setOfDepartTime.add(randomDepartTimeInNextNumberOfDay(7));
         }
         List<Flight> flightList = new ArrayList<>();
         for (LocalDateTime departTime : setOfDepartTime) {
@@ -58,7 +58,8 @@ public class RandomEverything {
             int flyTime = FlightService.getFlightDuration(departure, destination);
             LocalDateTime arrivalTime = departTime.plusHours(flyTime / 60).plusMinutes(flyTime % 60);
             double basePrice = BookingService.getBaseCost(departure, destination, departTime) * priceMulti;
-            AirPlane airPlane = randomAirPlane();
+            List<AirPlane> airPlaneList = randomPlaneList(30);
+            AirPlane airPlane = randomAirPlaneInPlaneList(airPlaneList);
             flightList.add(new FlightConcreteBuilder()
                     .setAirLines(airLinesName)
                     .setAirplane(airPlane)
@@ -107,10 +108,10 @@ public class RandomEverything {
         return new String[]{departure, destination};
     }
 
-    public static LocalDateTime randomDepartTimeInNext7Day() {
+    public static LocalDateTime randomDepartTimeInNextNumberOfDay(int days) {
         int hour = random.nextInt(24);
         int minute = random.nextInt(6) * 10;
-        int day = random.nextInt(7) + 1;
+        int day = random.nextInt(days) + 1;
         return LocalDateTime.now().withHour(hour).withMinute(minute).withSecond(0).plusDays(day);
     }
 
@@ -121,5 +122,15 @@ public class RandomEverything {
         } else {
             return PhakeAirPlaneFactory.getAirplane("business");
         }
+    }
+    private static List<AirPlane> randomPlaneList(int quantity){
+        List<AirPlane> planeList = new ArrayList<>();
+        while (planeList.size() < quantity){
+            planeList.add(randomAirPlane());
+        }
+        return planeList;
+    }
+    private static AirPlane randomAirPlaneInPlaneList(List<AirPlane> airPlaneList){
+        return airPlaneList.get(random.nextInt(airPlaneList.size()-1));
     }
 }

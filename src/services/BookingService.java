@@ -60,7 +60,7 @@ public class BookingService {
     private static void completeBooking() {
         System.out.println("Current cost: " + totalPrice);
         Seat selectedSeat = seatSelection();
-        if (selectedSeat == null)return;
+        if (selectedSeat == null) return;
         totalPrice = totalPrice * selectedSeat.getPriceMulti();
         System.out.println("Current cost: " + totalPrice);
         String baggageInfo = buyAdditionalBaggage();
@@ -157,7 +157,8 @@ public class BookingService {
         List<Flight> flightList = FlightService.getFlightList();
         filteredFlights.clear();
         flightList.forEach(flight -> {
-            if (flight.getDeparture().equals(departure) && flight.getDestination().equals(destination)) {
+            if (flight.getDeparture().equals(departure) && flight.getDestination().equals(destination)
+                    && flight.getDepartTime().isAfter(LocalDateTime.now().plusMinutes(30))) {
                 filteredFlights.add(flight);
             }
         });
@@ -249,7 +250,7 @@ public class BookingService {
                     Enter seat code: (type "cancel" to cancel)
                     """);
             String seatCode = scanner.nextLine();
-            if (seatCode.equals("cancel"))return null;
+            if (seatCode.equals("cancel")) return null;
             boolean exist = true;
             for (Seat seat : seatList) {
                 if (seat.getSeatCode().equals(seatCode)) {
