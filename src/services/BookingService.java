@@ -190,13 +190,15 @@ public class BookingService {
                 }
                 case 4 -> {
                     viewFlightDetail();
-                    System.out.println("Select this flight? (Y/N)");
-                    String choice = scanner.nextLine();
-                    if (choice.equalsIgnoreCase("Y")) {
-                        totalPrice = selectedFlight.getBasePrice();
-                        return;
-                    } else {
-                        selectedFlight = null;
+                    if (selectedFlight != null) {
+                        System.out.println("Select this flight? (Y/N)");
+                        String choice = scanner.nextLine();
+                        if (choice.equalsIgnoreCase("Y")) {
+                            totalPrice = selectedFlight.getBasePrice();
+                            return;
+                        } else {
+                            selectedFlight = null;
+                        }
                     }
                 }
                 case 5 -> {
@@ -217,9 +219,10 @@ public class BookingService {
                 System.out.println("Expected fly time: "
                         + FlightService.getFlightDuration(flight.getDepartTime(), flight.getArrivalTime()));
                 System.out.println("Crew: " + flight.getCrewInfo());
-                break;
+                return;
             }
         }
+        System.out.println("Flight code not found!");
     }
 
     private static Seat seatSelection() {

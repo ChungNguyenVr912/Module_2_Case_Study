@@ -3,6 +3,7 @@ package entity.report_impl;
 import entity.abstraction.Report;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class YearReport extends Report {
     private int yearReport;
@@ -57,7 +58,11 @@ public class YearReport extends Report {
 
     @Override
     public String toString() {
-        return "Year: " + yearReport + "\n"
-                + super.toString();
+        return "Yearly Report:" +
+                "Year report:" + yearReport + "\n" +
+                "Report ID: " + reportID + "\n" +
+                "Report time: " + reportTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + "\n" +
+                "Total Revenue: " + totalRevenue + "\n" +
+                "TotalTicketSold: " + totalTicketSold;
     }
 }

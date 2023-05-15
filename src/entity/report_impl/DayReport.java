@@ -4,6 +4,7 @@ import entity.abstraction.Report;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DayReport extends Report {
     private LocalDate dayReport;
@@ -54,5 +55,15 @@ public class DayReport extends Report {
 
     public void setDayReport(LocalDate dayReport) {
         this.dayReport = dayReport;
+    }
+
+    @Override
+    public String toString() {
+        return "Daily Report:\n" +
+                "Day of report: " + dayReport + "\n"+
+                "Report ID: " + reportID + "\n"+
+                "Report time: " + reportTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +"\n"+
+                "Total Revenue: " + totalRevenue +"\n"+
+                "TotalTicketSold: " + totalTicketSold;
     }
 }

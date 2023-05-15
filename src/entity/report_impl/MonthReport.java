@@ -4,6 +4,7 @@ import entity.abstraction.Report;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MonthReport extends Report {
     private LocalDate monthReport;
@@ -54,5 +55,15 @@ public class MonthReport extends Report {
 
     public void setMonthReport(LocalDate monthReport) {
         this.monthReport = monthReport;
+    }
+
+    @Override
+    public String toString() {
+        return "Monthly Report:" + "\n" +
+                "Month of report: " + monthReport.format(DateTimeFormatter.ofPattern("MM/yyyy")) + "\n" +
+                "Report ID: " + reportID + "\n" +
+                "Report time: " + reportTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + "\n" +
+                "Total Revenue: " + totalRevenue + "\n" +
+                "TotalTicketSold: " + totalTicketSold;
     }
 }
